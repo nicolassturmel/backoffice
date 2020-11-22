@@ -1,0 +1,22 @@
+{
+  "name": "backoffice",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nicolassturmel/backoffice.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nicolassturmel/backoffice/issues"
+  },
+  "homepage": "https://github.com/nicolassturmel/backoffice#readme",
+  "dependencies": {
+    "command-line-args": "^5.1.1"
+  }
+}
