@@ -1,7 +1,8 @@
 const { spawn } = require('child_process');
 
 const optionDefinitions = [
-    { name: 'server', type: String, multiple: false, defaultOption: true }
+    { name: 'server', type: String, multiple: false, defaultOption: true },
+    { name: 'interface', type: String}
   ]
 
 const commandLineArgs = require('command-line-args')
@@ -36,7 +37,7 @@ var toBit = (Val) => {
 }
 
 setInterval(() => {
-    const iftop = spawn('iftop', ['-i', 'eno1','-t','-s','2']);
+    const iftop = spawn('iftop', ['-i', options.interface || 'eno1','-t','-s','5']);
 
     iftop.stdout.on('data', (out) => {
     //console.log(`stdout: ${data}`);
@@ -119,6 +120,6 @@ setInterval(() => {
     req.write(dataS)
     req.end()
     });
-},2000)
+},6000)
 
 //setInterval(() => console.log(data),1000)

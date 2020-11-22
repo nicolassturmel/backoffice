@@ -5,9 +5,6 @@ var bodyParser = require('body-parser')
 let data = []
 app.use(bodyParser.json())
 
-app.get('/', function(req, res) {
-  res.send('Hello World!');
-});
 
 app.post("/backoffice", (req,res) => {
     console.log(req.ip)
@@ -27,6 +24,8 @@ app.post("/backoffice", (req,res) => {
 })
 
 app.get("/backoffice", (req,res) => res.send(JSON.stringify(data)))
+
+app.use('/', express.static(__dirname + '/html'));
 
 app.listen(80, function() {
   console.log('Example app listening on port 80!');
