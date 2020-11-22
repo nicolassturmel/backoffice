@@ -1,14 +1,14 @@
 const { spawn } = require('child_process');
 
 const optionDefinitions = [
-    { name: 'server', type: String, multiple: true, defaultOption: true }
+    { name: 'server', type: String, multiple: false, defaultOption: true }
   ]
 
 const commandLineArgs = require('command-line-args')
 const options = commandLineArgs(optionDefinitions)
 console.log(options)
 
-const https = require('https')
+const http = require('http')
 
 
 
@@ -92,6 +92,7 @@ setInterval(() => {
 
     iftop.on('close', (code) => {
     //console.log(`child process exited with code ${code}`);
+        let dataS = JSON.stringify(data)
       const postOptions = {
         hostname: options.server,
         port: 80,
@@ -99,11 +100,11 @@ setInterval(() => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Content-Length': data.length
+          'Content-Length': dataS.length
         }
       }
       
-      const req = https.request(postOptions, res => {
+      const req = http.request(postOptions, res => {
         console.log(`statusCode: ${res.statusCode}`)
       
         res.on('data', d => {
@@ -115,9 +116,9 @@ setInterval(() => {
         //console.error(error)
       })
 
-    req.write(data)
+    req.write(dataS)
     req.end()
     });
 },2000)
 
-setInterval(() => console.log(data),1000)
+//setInterval(() => console.log(data),1000)
