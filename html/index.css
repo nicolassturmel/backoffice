@@ -1,0 +1,27 @@
+:root {
+    --back1 : #ddeeee;
+    --back2 : #bbbbcc;
+}
+.right {
+    text-align: right;
+}
+
+.elem-traffic-node {
+    background-color: var(--back1);
+}
+.elem-traffic-node.alternate {
+    background-color: var(--back2);
+}
+
+#container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.element {
+    padding: 30px;
+}
+
+.offline {
+    background-color: red;
+}
