@@ -74,7 +74,6 @@ setInterval(() => getRequest("backoffice").then((data) => {
 }),3000)
 
 setInterval(() => getRequest("http://18.193.110.254/status").then((data) => {
-    console.log(data)
     let jdata = JSON.parse(data)
     let cont = document.getElementById("container")
     let relayName = "relay-18.193.110.254"
@@ -84,7 +83,7 @@ setInterval(() => getRequest("http://18.193.110.254/status").then((data) => {
     testAndCreate(Elem,relayName + "name","relayName",null,"RELAY 18.193.110.254")
     let tab = testAndCreate(Elem,relayName + "tab","","table")
     jdata.forEach(d => {
-        let r = testAndCreate(tab,relayName + d.id,d.mode,"tr")
+        let r = testAndCreate(tab,relayName + "-!-" + d.id,d.mode,"tr")
         if(d.mode == "pingpong") {
             testAndCreate(r,relayName + d.id + "name","idName","td",d.name)
             let source =  testAndCreate(r,relayName + d.id + "source","relaySource","td",d.source)
@@ -104,5 +103,11 @@ setInterval(() => getRequest("http://18.193.110.254/status").then((data) => {
                     destination.classList.add("orange")
             }
         }
+        
     })
+    Array.from(tab.children).forEach((child) => {
+        let id = child.id.split("-!-")[1]
+        if(!jdata.some(e => e.id == id)) child.outerHTML = ""
+    })
+
 }),1000)
