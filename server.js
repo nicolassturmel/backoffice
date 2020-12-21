@@ -23,7 +23,7 @@ app.post("/backoffice", (req,res) => {
     res.send()
 })
 
-app.get("/backoffice", (req,res) => res.send(JSON.stringify(data)))
+app.get("/backoffice", (req,res) => {let S = {data: data, sentTime: Date.now()} ; res.send(JSON.stringify(S))})
 
 app.use('/', express.static(__dirname + '/html'));
 
