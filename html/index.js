@@ -111,3 +111,42 @@ setInterval(() => getRequest("http://18.193.110.254/status").then((data) => {
     })
 
 }),1000)
+
+setInterval(() => getRequest("http://18.193.138.129:30080/status").then((data) => {
+    let jdata = JSON.parse(data)
+    let cont = document.getElementById("container")
+    let relayName = "relay-18.193.138.129"
+    let Elem = testAndCreate(cont,relayName,"relay element")
+    if(Elem._timer) clearTimeout(Elem._timer)
+    Elem._timer = setTimeout(() => Elem.classList.add("offline"),5000)
+    testAndCreate(Elem,relayName + "name","relayName",null,"RELAY 18.193.138.129")
+    let tab = testAndCreate(Elem,relayName + "tab","","table")
+    jdata.forEach(d => {
+        let r = testAndCreate(tab,relayName + "-!-" + d.id,d.mode,"tr")
+        if(d.mode == "pingpong") {
+            testAndCreate(r,relayName + d.id + "name","idName","td",d.name)
+            let source =  testAndCreate(r,relayName + d.id + "source","relaySource","td",d.source)
+             testAndCreate(r,relayName + d.id + "inter","relaySource","td","=>")
+            let destination =  testAndCreate(r,relayName + d.id + "destination","relaySource","td",d.destination)
+            if(d.status == 0) {
+                source.classList.add("gray")
+            }
+            else {
+                if(d.source_state)
+                    source.classList.add("green")
+                else
+                    source.classList.add("orange")
+                if(d.target_state)
+                    destination.classList.add("green")
+                else
+                    destination.classList.add("orange")
+            }
+        }
+        
+    })
+    Array.from(tab.children).forEach((child) => {
+        let id = child.id.split("-!-")[1]
+        if(!jdata.some(e => e.id == id)) child.outerHTML = ""
+    })
+
+}),1000)

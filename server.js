@@ -8,25 +8,31 @@ app.use(bodyParser.json())
 
 app.post("/backoffice", (req,res) => {
     console.log(req.ip)
-    let id = data.findIndex((e) => e.ip == req.ip)
-    let obj = {
-        lastSeen: Date.now(),
-        data: req.body,
-        ip: req.ip
+    try {
+        let id = data.findIndex((e) => e.ip == req.ip)
+        let obj = {
+            lastSeen: Date.now(),
+            data: req.body,
+            ip: req.ip
+        }
+        if(id == -1) {
+            data.push(obj)
+        }
+        else {
+            data[id] = obj
+        }
+        res.send()
     }
-    if(id == -1) {
-        data.push(obj)
+    catch (e) {
+        console.error("Oups")
     }
-    else {
-        data[id] = obj
-    }
-    res.send()
+    
 })
 
 app.get("/backoffice", (req,res) => {let S = {data: data, sentTime: Date.now()} ; res.send(JSON.stringify(S))})
 
 app.use('/', express.static(__dirname + '/html'));
 
-app.listen(80, function() {
+app.listen(31080, function() {
   console.log('Example app listening on port 80!');
 });
