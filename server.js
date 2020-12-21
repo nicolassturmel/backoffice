@@ -34,5 +34,5 @@ app.get("/backoffice", (req,res) => {let S = {data: data, sentTime: Date.now()} 
 app.use('/', express.static(__dirname + '/html'));
 
 app.listen(31080, function() {
-  console.log('Example app listening on port 80!');
+  console.log('Example app listening on port 31080!');
 });
