@@ -84,6 +84,9 @@ setInterval(() => {
                     data.details.push(d)
             }
         }
+        for(let k = data.length ; k > 0 ; k--) {
+            if(timeCapture - data[k-1].lastSeen > 360000/3) data.splice(k-1,1)
+        }
     })
 
     });
