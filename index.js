@@ -37,7 +37,7 @@ var toBit = (Val) => {
 }
 
 setInterval(() => {
-    const iftop = spawn('iftop', ['-i', options.interface || 'eno1','-t','-s','5']);
+    const iftop = spawn('iftop', ['-i', options.interface || 'eno1',`-n`,'-t','-s','5']);
 
     iftop.stdout.on('data', (out) => {
     //console.log(`stdout: ${data}`);
@@ -95,8 +95,8 @@ setInterval(() => {
     //console.log(`child process exited with code ${code}`);
         let dataS = JSON.stringify(data)
       const postOptions = {
-        hostname: options.server,
-        port: 80,
+        hostname: options.server.split(":")[0],
+        port: options.server.split(":")[1] || 80,
         path: '/backoffice',
         method: 'POST',
         headers: {
